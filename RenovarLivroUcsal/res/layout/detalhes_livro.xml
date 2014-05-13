@@ -1,0 +1,82 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F0F0F0"
+    tools:context=".Cadastro" >
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/topo_marca"       
+        android:text="@string/hello_world"
+        android:textColor="#000000"
+        android:textSize="25dp"
+        android:gravity="left"
+        android:fontFamily="BBAlpha Sans"
+    />
+
+    <TextView
+        android:id="@+id/tv_titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Titulo"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/tv_subtitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="titulo"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/tv_autor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Autor"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/tv_subautor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="autor"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/tv_descricao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Descrição"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/tv_subdescricao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="descrição"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/tv_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Entrega"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/tv_subdata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="data"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Solicitar Renovação" />
+
+</LinearLayout>
