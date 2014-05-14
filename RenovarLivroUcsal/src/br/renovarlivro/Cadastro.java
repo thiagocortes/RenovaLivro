@@ -16,10 +16,6 @@ public class Cadastro extends Activity{
 	
 	DbHelper db = new DbHelper(this);
 	
-	TextView titulo;
-	TextView isdn;
-	TextView autor;
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -32,12 +28,11 @@ public class Cadastro extends Activity{
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
-	
 	public void inserir(View v){
 		EditText titulo = (EditText) findViewById(R.id.et_titulo);
 		EditText isdn = (EditText) findViewById(R.id.et_isdn);
 		EditText autor = (EditText) findViewById(R.id.et_autor);
+		EditText data_entrega = (EditText) findViewById(R.id.et_data);
 		try{
 			SQLiteDatabase sql = db.getWritableDatabase();
 			
@@ -46,6 +41,7 @@ public class Cadastro extends Activity{
 			valor.put("titulo", titulo.getText().toString());
 			valor.put("isdn", isdn.getText().toString());	
 			valor.put("autor", autor.getText().toString());	
+			valor.put("data_entrega", data_entrega.getText().toString());
 			sql.insert("livros", null, valor);
 			Toast.makeText(this,"Livros cadastrados com sucesso",Toast.LENGTH_SHORT).show();
 		}

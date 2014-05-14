@@ -49,7 +49,7 @@ public class MainActivity extends Activity {
 		SQLiteDatabase sql = db.getWritableDatabase();		
 		String [] colunas = {"titulo","isdn","autor"};
 		int [] campo = {R.id.tv_titulo_livro,R.id.tv_isdn,R.id.tv_autor};
-		Cursor cursor = sql.rawQuery("select * from livros",null);
+		Cursor cursor = sql.rawQuery("select * from livros ",null);
 		
 		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.lista, cursor, colunas,campo);
 		listLivros.setAdapter(adapter);

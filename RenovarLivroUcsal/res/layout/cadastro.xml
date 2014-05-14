@@ -65,6 +65,15 @@
 	        android:inputType="number"
 	        android:hint="ISDN"
         />
+    	<EditText 
+	        android:id="@+id/et_data"
+	        android:layout_marginTop="10dp"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:background="@drawable/styles_edit_text"
+	        android:inputType="text"
+	        android:hint="Devolução (10.10.2014)"
+        />
     
     	<Button 
 	        android:id="@+id/bt_cadastrar"        

@@ -72,11 +72,25 @@
         android:layout_height="wrap_content"
         android:text="data"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+  
 
-    <Button
-        android:id="@+id/button1"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+	    <Button
+        android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Solicitar Renovação" />
+        android:text="Renovar" />
+
+	    <Button
+	        android:id="@+id/button3"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_toRightOf="@+id/button2"
+	        android:text="Devolver" />
+
+</RelativeLayout>
 
 </LinearLayout>

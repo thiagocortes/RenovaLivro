@@ -10,7 +10,6 @@ import android.util.Log;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-
 public class Detalhes extends Activity{
 	
 	DbHelper db = new DbHelper(this);
@@ -45,7 +44,7 @@ public class Detalhes extends Activity{
 			titulo.setText(cursor.getString(cursor.getColumnIndex("titulo")));
 			autor.setText(cursor.getString(cursor.getColumnIndex("autor")));
 			descricao.setText(cursor.getString(cursor.getColumnIndex("isdn")));
-			data.setText("20.05.2014");
+			//data.setText(cursor.getString(cursor.getColumnIndex("data_entrega")));
 		}
 		try{
 			db.close();
