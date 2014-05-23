@@ -1,6 +1,7 @@
 package br.renovarlivro;
 
-import java.sql.Date;
+import java.util.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import android.app.Activity;
@@ -61,16 +62,16 @@ public class Detalhes extends Activity{
 //			e.getMessage();
 //		}
 	}
-	public void renovar(View view){
+	public void renovar(View view) throws ParseException{
 		Intent it = getIntent();
 		int id = it.getIntExtra("id", 0);
 				
 		String dataRenovacao = data.getText().toString();
 		
 		SimpleDateFormat dtFormat = new SimpleDateFormat("dd/MM/yyyy");
-		Date dt = new Date(0);
+		Date dt = dtFormat.parse(dataRenovacao);
 		Log.d("tempo",dataRenovacao);
-		String novaData = dtFormat.format(dt.parse(dataRenovacao)+(7000*60*60*24));
+		String novaData = dtFormat.format(dt.getTime()+(7000*60*60*24));
 		
 		ContentValues valores = new ContentValues();
 		valores.put("data_entrega",novaData);

@@ -1,6 +1,6 @@
 package br.renovarlivro;
 
-import java.sql.Date;
+import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -58,10 +58,16 @@ public class Cadastro extends Activity{
 		db.close();
 		finish();
 	}	
-	public String getData(){
+	public String getData() throws ParseException{
 		SimpleDateFormat dtFormat = new SimpleDateFormat("dd/MM/yyyy");
-		Date dt = new Date(0);
-		Log.d("tempo",dataEntrega);
-		return dtFormat.format(dt.parse(dataEntrega)+(7000*60*60*24));
+		Date dt = dtFormat.parse(dataEntrega);   			
+		return dtFormat.format(dt.getTime()+7000*60*60*24);
 	}
+	
+//	public String getData(){
+//		SimpleDateFormat dtFormat = new SimpleDateFormat("dd/MM/yyyy");
+//		Date dt = new Date(0);
+//		Log.d("tempo",dataEntrega);
+//		return dtFormat.format(dt.parse(dataEntrega)+(7000*60*60*24));
+//	}
 }
