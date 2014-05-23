@@ -21,8 +21,8 @@ public class DbHelper extends SQLiteOpenHelper{
 	private final static String CREATE_DATABASE ="create database "+DB_NAME;
 	
 	private final String CREATE_TABLE = "create table "+TABLE_NAME+"("+COLUMN_ID+" integer primary key autoincrement,"
-			+COLUMN_TITULO+" varchar,"+COLUMN_ISDN+" integer,"+COLUMN_AUTOR+" varchar,"+COLUMN_DATA_EMPRESTIMO+" varchar,"
-			+COLUMN_DATA_ENTREGA+" varchar)";
+			+COLUMN_TITULO+" varchar,"+COLUMN_ISDN+" integer,"+COLUMN_AUTOR+" varchar,"+COLUMN_DATA_EMPRESTIMO+" real,"
+			+COLUMN_DATA_ENTREGA+" real)";
 	
 	private static final String DELETE_TABLE = "drop table "+TABLE_NAME;
 

@@ -1,23 +1,30 @@
 package br.renovarlivro;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.SimpleCursorAdapter;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Detalhes extends Activity{
 	
 	DbHelper db = new DbHelper(this);
+	SQLiteDatabase sql = null;
 	
 	TextView titulo;
 	TextView autor;
 	TextView descricao;
 	TextView data;
+	
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +40,7 @@ public class Detalhes extends Activity{
 		Intent it = getIntent();
 		int id = it.getIntExtra("id", 0);
 		Log.d("Activity Detalhes", String.valueOf(id));
-		
-		SQLiteDatabase sql = db.getReadableDatabase();
+		sql = db.getReadableDatabase();
 		Cursor cursor = sql.rawQuery("select * from livros where _id= ?",new String []{String.valueOf(id)});
 //		Cursor cursor = sql.query(false, "livros",new String []{"autor","isdn","titulo"},null,new String []{String.valueOf(id)}, null, null, null, null);
 
@@ -44,14 +50,32 @@ public class Detalhes extends Activity{
 			titulo.setText(cursor.getString(cursor.getColumnIndex("titulo")));
 			autor.setText(cursor.getString(cursor.getColumnIndex("autor")));
 			descricao.setText(cursor.getString(cursor.getColumnIndex("isdn")));
-			//data.setText(cursor.getString(cursor.getColumnIndex("data_entrega")));
+			data.setText(cursor.getString(cursor.getColumnIndex("data_entrega")));
+			Log.d("Data",String.valueOf(data.getText()));
 		}
-		try{
-			db.close();
-			cursor.close();
-		}
-		catch(SQLiteException e){
-			e.getMessage();
-		}
+//		try{
+//			db.close();
+//			cursor.close();
+//		}
+//		catch(SQLiteException e){
+//			e.getMessage();
+//		}
+	}
+	public void renovar(View view){
+		Intent it = getIntent();
+		int id = it.getIntExtra("id", 0);
+				
+		String dataRenovacao = data.getText().toString();
+		
+		SimpleDateFormat dtFormat = new SimpleDateFormat("dd/MM/yyyy");
+		Date dt = new Date(0);
+		Log.d("tempo",dataRenovacao);
+		String novaData = dtFormat.format(dt.parse(dataRenovacao)+(7000*60*60*24));
+		
+		ContentValues valores = new ContentValues();
+		valores.put("data_entrega",novaData);
+		sql.update("livros", valores,  "_id = ?",new String []{String.valueOf(id)});
+		Toast.makeText(this,"O livro "+titulo.getText().toString()+" foi renovado para "+novaData,Toast.LENGTH_LONG).show();
+
 	}
 }
