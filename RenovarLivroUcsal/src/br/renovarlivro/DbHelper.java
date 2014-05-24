@@ -17,11 +17,12 @@ public class DbHelper extends SQLiteOpenHelper{
 	private final String COLUMN_AUTOR = "autor";
 	private final String COLUMN_DATA_EMPRESTIMO = "data_emprestimo";
 	private final String COLUMN_DATA_ENTREGA = "data_entrega";
+	private final String COLUMN_DEVOLVIDO = "devolvido";
 	
 	private final static String CREATE_DATABASE ="create database "+DB_NAME;
 	
 	private final String CREATE_TABLE = "create table "+TABLE_NAME+"("+COLUMN_ID+" integer primary key autoincrement,"
-			+COLUMN_TITULO+" varchar,"+COLUMN_ISDN+" integer,"+COLUMN_AUTOR+" varchar,"+COLUMN_DATA_EMPRESTIMO+" real,"
+			+COLUMN_TITULO+" varchar,"+COLUMN_DEVOLVIDO+" integer default 1, "+COLUMN_ISDN+" integer,"+COLUMN_AUTOR+" varchar,"+COLUMN_DATA_EMPRESTIMO+" real,"
 			+COLUMN_DATA_ENTREGA+" real)";
 	
 	private static final String DELETE_TABLE = "drop table "+TABLE_NAME;
