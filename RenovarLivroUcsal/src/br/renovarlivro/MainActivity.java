@@ -1,3 +1,10 @@
+/*
+ * Alunos: Thiago Silva Côrtes, Roosevelt Ferreira, Marcos Souza, Ailton Junior
+ * Prof: Mario Jorge Pereira
+ * Disciplina: Desenvolvimento Mobile
+ * 
+ */
+
 package br.renovarlivro;
 
 import java.util.ArrayList;
