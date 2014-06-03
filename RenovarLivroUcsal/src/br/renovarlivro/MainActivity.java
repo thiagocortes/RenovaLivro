@@ -35,7 +35,7 @@ public class MainActivity extends Activity {
 	Bundle savedInstanceState = null;
 	DbHelper db = new DbHelper(this);;	
 	
-	@Override
+@Override
 protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
@@ -81,8 +81,6 @@ public void onCreateContextMenu(ContextMenu menu, View v,
 	}
 	
 public boolean onContextItemSelected(MenuItem item) {
-		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
-				.getMenuInfo();
 				
 		int position = ((AdapterContextMenuInfo)item.getMenuInfo()).position; 
 		
