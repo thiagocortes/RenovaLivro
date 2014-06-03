@@ -23,8 +23,8 @@ public class DbHelper extends SQLiteOpenHelper {
 						+ COLUMN_ID + " integer primary key autoincrement, " 
 						+ COLUMN_TITULO	+ " varchar(100), "
 						+ COLUMN_AUTOR  + " varchar(55), "
-						+ COLUMN_DATA_EMPRESTIMO + " real, "
-						+ COLUMN_DATA_ENTREGA  + " real, "
+						+ COLUMN_DATA_EMPRESTIMO + " varchar(100), "
+						+ COLUMN_DATA_ENTREGA  + " varchar(55), "
 						+ COLUMN_DEVOLVIDO  + " varchar(55), "
 						+ COLUMN_ISDN + " integer ); "
 						
@@ -33,8 +33,8 @@ public class DbHelper extends SQLiteOpenHelper {
 						+ COLUMN_ID + " integer primary key autoincrement, " 
 						+ COLUMN_TITULO	+ " varchar(100), "
 						+ COLUMN_AUTOR  + " varchar(55), "
-						+ COLUMN_DATA_EMPRESTIMO + " real, "
-						+ COLUMN_DATA_ENTREGA  + " real, "
+						+ COLUMN_DATA_EMPRESTIMO + " varchar(100), "
+						+ COLUMN_DATA_ENTREGA  + " varchar(55), "
 						+ COLUMN_DEVOLVIDO  + " varchar(55), "
 						+ COLUMN_ISDN + " integer ); ";
    

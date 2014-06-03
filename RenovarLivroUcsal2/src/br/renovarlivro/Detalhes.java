@@ -1,17 +1,20 @@
 package br.renovarlivro;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Detalhes extends Activity{
 	
@@ -27,7 +30,6 @@ public class Detalhes extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setTitle("Biblioteca UCSAL");
 		setContentView(R.layout.detalhes_livro);
 		exibirDetalhes();		
 	}
@@ -50,7 +52,7 @@ public class Detalhes extends Activity{
 		int id = it.getIntExtra("id", 0);
 		Log.d("Activity Detalhes", String.valueOf(id));
 		sql = db.getReadableDatabase();
-		Cursor cursor = sql.rawQuery("select * from livros where isdn= ?",new String []{String.valueOf(10)});
+		Cursor cursor = sql.rawQuery("select * from livros where _id= ?",new String []{String.valueOf(id)});
 
 		Log.d("Activity Detalhes", "Consulta realizada com sucesso");
 		while(cursor.moveToNext()){
@@ -70,24 +72,35 @@ public class Detalhes extends Activity{
 	}
 	
 	public void renovar(View view) throws ParseException{
-		Intent inte =	new Intent(Intent.ACTION_VIEW, Uri.parse(
-				"https://www.ucsal.br/PortalSagres/Modules/Acervo/Leitor/Emprestimos.aspx "));
-		startActivity(inte);
+		Intent it = getIntent();
+		int id = it.getIntExtra("id", 0);
+				
+		String dataRenovacao = data.getText().toString();
+		
+		SimpleDateFormat dtFormat = new SimpleDateFormat("dd/MM/yyyy");
+		Date dt = dtFormat.parse(dataRenovacao);
+		Log.d("tempo",dataRenovacao);
+		String novaData = dtFormat.format(dt.getTime()+(7000*60*60*24));
+		
+		ContentValues valores = new ContentValues();
+		valores.put("data_entrega",novaData);
+		sql.update("livros", valores,  "_id = ?",new String []{String.valueOf(id)});
+		Toast.makeText(this,"O livro "+titulo.getText().toString()+" foi renovado para "+novaData,Toast.LENGTH_LONG).show();
 	}
-//	public void devolver(View view) {
-//		Intent it = getIntent();
-//		int id = it.getIntExtra("id", 0);
-//		
-//		ContentValues valores = new ContentValues();
-//		valores.put("devolvido",0);
-//		sql.update("livros", valores,  "_id = ?",new String []{String.valueOf(id)});
-//		Toast.makeText(this,"O livro "+titulo.getText().toString()+" foi devolvido!",Toast.LENGTH_LONG).show();
-//		try{
-//			sql.close();
-//			
-//		}catch(SQLiteException e){
-//			e.getMessage();
-//		}	
-//		finish();
-//	}
+	public void devolver(View view) {
+		Intent it = getIntent();
+		int id = it.getIntExtra("id", 0);
+		
+		ContentValues valores = new ContentValues();
+		valores.put("devolvido",0);
+		sql.update("livros", valores,  "_id = ?",new String []{String.valueOf(id)});
+		Toast.makeText(this,"O livro "+titulo.getText().toString()+" foi devolvido!",Toast.LENGTH_LONG).show();
+		try{
+			sql.close();
+			
+		}catch(SQLiteException e){
+			e.getMessage();
+		}	
+		finish();
+	}
 }

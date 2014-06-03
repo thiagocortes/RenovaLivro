@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +20,7 @@ import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
  
 public class MainActivity extends Activity {
 
@@ -25,11 +28,11 @@ public class MainActivity extends Activity {
 	List<ItemLista> itens = new ArrayList<ItemLista>();
 	ItemAdapter adapter = new ItemAdapter(this, itens);
 	TextView aviso = null;
-	Bundle savedInstanceState = null;
+	
 	DbHelper db = new DbHelper(this);;	
 	
 	@Override
-protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
 		setTitle("Biblioteca UCSAL");	
@@ -37,16 +40,20 @@ protected void onCreate(Bundle savedInstanceState) {
 		Consulta conn = new Consulta(MainActivity.this);
 		conn.execute("http://thiagocortes.besaba.com/json.php");
 		
-		this.exibirLivros();		
+		this.exibirNoticias();
+		
 		lista = (ListView) findViewById(R.id.listView1);
+			
 		lista.setAdapter(adapter);
-	
+		
+		//Registrar o menu de contexto
 		registerForContextMenu(lista);
 	}
 		
-public void exibirLivros()   {
+   private void exibirNoticias()   {
 	   
-	    SQLiteDatabase sql = db.getReadableDatabase();
+	    SQLiteDatabase sql = null;
+		sql = db.getReadableDatabase();
 		Cursor cursor = sql.rawQuery("select * from livros", null);
 
 		int flag = 0;
@@ -63,17 +70,18 @@ public void exibirLivros()   {
 			itens.add(new ItemLista(id, titulo, autor,isdn));
 		}
 		Log.d("QUERY", "Consulta realizada com sucesso -  Flag:"+ flag);
+	
 	}
 
 	@Override
-public void onCreateContextMenu(ContextMenu menu, View v,
+	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.context_menu, menu);	
 	}
 	
-public boolean onContextItemSelected(MenuItem item) {
+	public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
 				.getMenuInfo();
 				
@@ -83,14 +91,18 @@ public boolean onContextItemSelected(MenuItem item) {
 	   	
 		switch (item.getItemId()) {
 		
-		case R.id.action_exibir:	
-			Intent intent =	new Intent(MainActivity.this,Detalhes.class);
-			startActivity(intent);			
+		case R.id.action_exibir:			
+			Intent intent =	new Intent(this,Detalhes.class);
+			startActivity(intent);
+			return true;
+		case R.id.action_excluir:
+			itens.remove(info.position);
+			Toast.makeText(this, "Item removivido com sucesso", Toast.LENGTH_LONG).show();
+			onResume();
 			return true;
 		case R.id.action_renovar:
-			Intent inte =	new Intent(Intent.ACTION_VIEW, Uri.parse(
-					"https://www.ucsal.br/PortalSagres/Modules/Acervo/Leitor/Emprestimos.aspx "));
-			startActivity(inte);
+			Intent it =	new Intent(this,Detalhes.class);
+			startActivity(it);
 			return true;
 		default:
 			return super.onContextItemSelected(item);
@@ -98,15 +110,28 @@ public boolean onContextItemSelected(MenuItem item) {
 }	
 
 	@Override
-protected void onResume() {
+	protected void onResume() {
 		super.onResume();
 		adapter.notifyDataSetChanged();
 	}
-	public void atualizarLivros(View v) {
-		// TODO Auto-generated method stub
-		//exibirLivros();
-		SQLiteDatabase sql = db.getWritableDatabase();
-		sql.delete("livros", null, null);
-		onCreate(savedInstanceState);
-	}
+	
+	private boolean verificaConexao() {
+        
+		boolean conectado = false;
+       
+        try
+        {
+            ConnectivityManager cm = (ConnectivityManager)
+            getSystemService(Context.CONNECTIVITY_SERVICE);
+            if (cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isAvailable() && cm.getActiveNetworkInfo().isConnected()) {
+            	conectado = true;
+            }
+        }catch (Exception e) {
+        	Log.e("ERRO DE CONEXAO", e.getMessage());;
+        }
+        return conectado;
+	 }
+
+	
+	
 }
