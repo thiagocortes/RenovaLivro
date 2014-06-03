@@ -46,11 +46,14 @@ public class Detalhes extends Activity{
 		descricao = (TextView) findViewById(R.id.tv_subdescricao);
 		data = (TextView) findViewById(R.id.tv_subdata);
 		
+		
 		Intent it = getIntent();
-		int id = it.getIntExtra("id", 0);
-		Log.d("Activity Detalhes", String.valueOf(id));
+		Bundle pegarTexto = it.getExtras();
+		String tituloLivro = pegarTexto.getString("id");
+		Log.d("Activity Detalhes", String.valueOf(tituloLivro));
+		
 		sql = db.getReadableDatabase();
-		Cursor cursor = sql.rawQuery("select * from livros where isdn= ?",new String []{String.valueOf(10)});
+		Cursor cursor = sql.rawQuery("select * from livros where titulo = ?",new String []{String.valueOf(tituloLivro)});
 
 		Log.d("Activity Detalhes", "Consulta realizada com sucesso");
 		while(cursor.moveToNext()){

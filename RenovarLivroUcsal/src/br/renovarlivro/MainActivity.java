@@ -79,14 +79,24 @@ public boolean onContextItemSelected(MenuItem item) {
 				
 		int position = ((AdapterContextMenuInfo)item.getMenuInfo()).position; 
 		
-		Object adp = adapter.getItem( position );		
-	   	
-		switch (item.getItemId()) {
+		Log.d("Objeto 1",String.valueOf(position));
+		ItemLista adp = adapter.getItem( position );
+		
+	   //	Log.d("Objeto 2",String.valueOf(adp.getId()));
+		
+	   	switch (item.getItemId()) {
 		
 		case R.id.action_exibir:	
 			Intent intent =	new Intent(MainActivity.this,Detalhes.class);
+			Bundle texto = new Bundle();
+			
+			Log.d("Objeto 2",adp.getTitulo());
+			
+			texto.putString("id", adp.getTitulo());
+			intent.putExtras(texto);			
 			startActivity(intent);			
 			return true;
+			
 		case R.id.action_renovar:
 			Intent inte =	new Intent(Intent.ACTION_VIEW, Uri.parse(
 					"https://www.ucsal.br/PortalSagres/Modules/Acervo/Leitor/Emprestimos.aspx "));
