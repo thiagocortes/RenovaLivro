@@ -51,5 +51,4 @@ public class ItemAdapter extends BaseAdapter {
 		isdn.setText(item.getIsdn());
 		return view;
 	}
-
 }

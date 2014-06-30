@@ -28,6 +28,7 @@ public class Consulta extends AsyncTask<String, Void, Boolean> {
 	ProgressDialog Dialog;
 	Context context;
 	String dataEntrega;
+	
 	@Override
 	protected void onPreExecute() {
 			super.onPreExecute();

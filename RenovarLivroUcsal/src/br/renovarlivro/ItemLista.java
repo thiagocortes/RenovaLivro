@@ -7,7 +7,6 @@ public class ItemLista {
 	private String autor;
 	private String isdn;
 	private String data_entrega;
-	 
 
 	public ItemLista(int id,String titulo,String autor,String isdn) {
 		// TODO Auto-generated constructor stub

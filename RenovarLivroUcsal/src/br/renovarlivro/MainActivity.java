@@ -117,7 +117,7 @@ protected void onResume() {
 		super.onResume();
 		adapter.notifyDataSetChanged();
 	}
-	public void atualizarLivros(View v) {
+public void atualizarLivros(View v) {
 		// TODO Auto-generated method stub
 		//exibirLivros();
 		SQLiteDatabase sql = db.getWritableDatabase();
